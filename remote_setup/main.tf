@@ -18,6 +18,10 @@ data "azurerm_subscription" "current" {}
 
 data "azuread_client_config" "current" {}
 
+data "github_actions_public_key" "terragit_public_key" {
+  repository = var.github_repository
+}
+
 resource "azuread_application" "gh_actions" {
   display_name = local.service_principal_name
   owners = [ data.azuread_client_config.current.object_id ]
