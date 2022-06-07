@@ -18,8 +18,12 @@ data "azurerm_subscription" "current" {}
 
 data "azuread_client_config" "current" {}
 
+data "github_repository" "repo" {
+  full_name = "marciasheila/ado-labs-github-actions"
+}
+
 data "github_actions_public_key" "terragit_public_key" {
-  repository = var.github_repository
+  repository = data.github_repository.repo.name
 }
 
 resource "azuread_application" "gh_actions" {
